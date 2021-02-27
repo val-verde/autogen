@@ -23,7 +23,7 @@ SUBDIRS        = compat snprintfv autoopts agen5
 
 if DO_SHELL_CMDS
 if  HAVE_XML_LIB
-SUBDIRS       += columns getdefs xml2ag doc pkg
+SUBDIRS       += columns getdefs xml2ag pkg
 else
 SUBDIRS       += columns getdefs pkg
 endif
