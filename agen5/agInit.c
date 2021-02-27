@@ -70,7 +70,7 @@ init_scm(void)
         AGDUPSTR(libguile_ver, scm2display(ini_res), "ini res");
     }
 
-    {
+    if (false) {
         unsigned int maj, min, mic;
         switch (sscanf(libguile_ver, "%u.%u.%u", &maj, &min, &mic)) {
         case 2:
