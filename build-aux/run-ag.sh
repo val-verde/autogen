@@ -25,7 +25,6 @@
 # any containing directory must be created. The target is created with a
 # very old time stamp.
 #
-AGexe=/u/bkorb/tools/ag/autogen-bld/agen5/.libs/autogen
 find_exe() {
   eval local exe=\${$1}
   test -x "$exe" && return 0
@@ -69,8 +68,11 @@ case "$1" in
   '' ) exit 1 ;;
 esac
 
+AGexe=${AUTOGEN}
+CLexe=${COLUMNS}
+
 test -x "$AGexe" || find_exe AGexe autogen
-test -x "CLexe"  || find_exe CLexe columns
+test -x "$CLexe"  || find_exe CLexe columns
 PATH=`dirname "$CLexe"`:"$PATH"
 L_opt="-L'${top_srcdir}/autoopts/tpl'"
 test "X${top_srcdir}" = "X${top_builddir}" || \
