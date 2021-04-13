@@ -428,7 +428,11 @@ MODE struct timespec    outfile_time, maxfile_time;
 #undef  st_atime
 #define st_atime st_atim
 #undef  st_mtime
+#ifdef __APPLE__
+#define st_mtime st_mtimespec
+#else
 #define st_mtime st_mtim
+#endif
 #undef  st_ctime
 #define st_ctime st_ctim
 #endif // HAVE_UTIMENSAT
