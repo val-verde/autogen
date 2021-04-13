@@ -356,7 +356,7 @@ else
       hardcode_libdir_flag_spec=' '
       libext=lib
       ;;
-    darwin* | rhapsody*)
+    darwin* | rhapsody* | ios* | macos*)
       hardcode_direct=no
       if { case $cc_basename in ifort*) true;; *) test "$GCC" = yes;; esac; }; then
         :
@@ -537,7 +537,7 @@ case "$host_os" in
     shrext=.dll
     library_names_spec='$libname.dll.a $libname.lib'
     ;;
-  darwin* | rhapsody*)
+  darwin* | rhapsody* | ios* | macos*)
     shrext=.dylib
     library_names_spec='$libname$shrext'
     ;;

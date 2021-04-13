@@ -5144,7 +5144,7 @@ func_extract_archives ()
       func_mkdir_p "$my_xdir"
 
       case $host in
-      *-darwin*)
+      *-darwin* | ios* | macos*)
 	func_verbose "Extracting $my_xabs"
 	# Do not bother doing anything if just a dry run
 	$opt_dry_run || {
@@ -6684,7 +6684,7 @@ func_mode_link ()
 	  ;;
 	framework)
 	  case $host in
-	    *-*-darwin*)
+	    *-*-darwin* | ios* | macos*)
 	      case "$deplibs " in
 		*" $qarg.ltframework "*) ;;
 		*) func_append deplibs " $qarg.ltframework" # this is fixed later
@@ -7094,7 +7094,7 @@ func_mode_link ()
 
       -no-install)
 	case $host in
-	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2* | *-*-darwin* | *-cegcc*)
+	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2* | *-*-darwin* | ios* | macos* | *-cegcc*)
 	  # The PATH hackery in wrapper scripts is required on Windows
 	  # and Darwin in order for the loader to find any dlls it needs.
 	  func_warning "'-no-install' is ignored for $host"
@@ -8251,7 +8251,7 @@ func_mode_link ()
 		  *-*-sysv4*uw2*) add_dir=-L$dir ;;
 		  *-*-sysv5OpenUNIX* | *-*-sysv5UnixWare7.[01].[10]* | \
 		    *-*-unixware7*) add_dir=-L$dir ;;
-		  *-*-darwin* )
+		  *-*-darwin* | ios* | macos* )
 		    # if the lib is a (non-dlopened) module then we cannot
 		    # link against it, someone is ignoring the earlier warnings
 		    if /usr/bin/file -L $add 2> /dev/null |
@@ -8496,7 +8496,7 @@ func_mode_link ()
 		esac
 		if $GREP "^installed=no" $deplib > /dev/null; then
 		case $host in
-		*-*-darwin*)
+		*-*-darwin* | ios* | macos*)
 		  depdepl=
 		  eval deplibrary_names=`$SED -n -e 's/^library_names=\(.*\)$/\1/p' $deplib`
 		  if test -n "$deplibrary_names"; then
@@ -8805,7 +8805,7 @@ func_mode_link ()
 	  #
 	  case $version_type in
 	  # correct linux to gnu/linux during the next big refactor
-	  darwin|freebsd-elf|linux|osf|windows|none)
+	  darwin|ios|macos|freebsd-elf|linux|osf|windows|none)
 	    func_arith $number_major + $number_minor
 	    current=$func_arith_result
 	    age=$number_minor
@@ -8869,7 +8869,7 @@ func_mode_link ()
 	case $version_type in
 	none) ;;
 
-	darwin)
+	darwin|ios|macos)
 	  # Like Linux, but with the current version available in
 	  # verstring for coding it into the library header
 	  func_arith $current - $age
@@ -8989,7 +8989,7 @@ func_mode_link ()
 	if test -z "$vinfo" && test -n "$release"; then
 	  major=
 	  case $version_type in
-	  darwin)
+	  darwin|ios|macos)
 	    # we can't check for "0.0" in archive_cmds due to quoting
 	    # problems, so we reset it completely
 	    verstring=
@@ -9486,7 +9486,7 @@ EOF
       fi
       # Time to change all our "foo.ltframework" stuff back to "-framework foo"
       case $host in
-	*-*-darwin*)
+	*-*-darwin* | ios* | macos*)
 	  newdeplibs=`$ECHO " $newdeplibs" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
 	  new_inherited_linker_flags=`$ECHO " $new_inherited_linker_flags" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
 	  deplibs=`$ECHO " $deplibs" | $SED 's% \([^ $]*\).ltframework% -framework \1%g'`
@@ -10207,7 +10207,7 @@ EOF
       esac
 
       case $host in
-      *-*-darwin*)
+      *-*-darwin* | ios* | macos*)
 	# Don't allow lazy linking, it breaks C++ global constructors
 	# But is supposedly fixed on 10.4 or later (yay!).
 	if test CXX = "$tagname"; then
